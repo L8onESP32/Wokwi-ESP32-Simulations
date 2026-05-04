@@ -1,31 +1,29 @@
-#include <Arduino.h>
+##include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
-#define OLED_RESET -1
+#define OLED_RESET    -1
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
+// Pin definitions
 const int redLed = 5;
 const int greenLed = 6;
 const int redBtn = 4;
 const int greenBtn = 7;
 
+// Button states and counters
+bool lastRedState = HIGH;
+bool lastGreenState = HIGH;
 int redCount = 0;
 int greenCount = 0;
 
-// Debounce variables
-unsigned long lastRedDebounceTime = 0;
-unsigned long lastGreenDebounceTime = 0;
-const unsigned long debounceDelay = 30;   // 30 ms debounce
-
-bool lastRedState = HIGH;
-bool lastGreenState = HIGH;
-bool redButtonPressed = false;   // flag to trigger action once per press
-bool greenButtonPressed = false;
+unsigned long lastDebounceTimeRed = 0;
+unsigned long lastDebounceTimeGreen = 0;
+const unsigned long debounceDelay = 50;
 
 void updateDisplay() {
   display.clearDisplay();
@@ -51,51 +49,42 @@ void setup() {
   digitalWrite(redLed, LOW);
   digitalWrite(greenLed, LOW);
 
+  // Initialize OLED
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
     Serial.println("OLED allocation failed");
     for (;;);
   }
+  display.clearDisplay();
   updateDisplay();
 }
 
 void loop() {
-  // Read current button states (active LOW)
+  // Read button states
   bool redReading = digitalRead(redBtn);
   bool greenReading = digitalRead(greenBtn);
 
-  // ======== Red button ========
+  // Debounce and count red button
   if (redReading != lastRedState) {
-    lastRedDebounceTime = millis();
+    lastDebounceTimeRed = millis();
   }
-
-  if ((millis() - lastRedDebounceTime) > debounceDelay) {
-    // Button state is stable
-    if (redReading == LOW && !redButtonPressed) {
-      // Press detected (only once)
-      redButtonPressed = true;
+  if ((millis() - lastDebounceTimeRed) > debounceDelay) {
+    if (redReading == LOW && redCount >= 0) {
       redCount++;
-      digitalWrite(redLed, !digitalRead(redLed));
+      digitalWrite(redLed, !digitalRead(redLed)); // toggle LED on each press
       updateDisplay();
-    } else if (redReading == HIGH && redButtonPressed) {
-      // Button released – reset flag for next press
-      redButtonPressed = false;
     }
   }
   lastRedState = redReading;
 
-  // ======== Green button ========
+  // Debounce and count green button
   if (greenReading != lastGreenState) {
-    lastGreenDebounceTime = millis();
+    lastDebounceTimeGreen = millis();
   }
-
-  if ((millis() - lastGreenDebounceTime) > debounceDelay) {
-    if (greenReading == LOW && !greenButtonPressed) {
-      greenButtonPressed = true;
+  if ((millis() - lastDebounceTimeGreen) > debounceDelay) {
+    if (greenReading == LOW && greenCount >= 0) {
       greenCount++;
-      digitalWrite(greenLed, !digitalRead(greenLed));
+      digitalWrite(greenLed, !digitalRead(greenLed)); // toggle LED on each press
       updateDisplay();
-    } else if (greenReading == HIGH && greenButtonPressed) {
-      greenButtonPressed = false;
     }
   }
   lastGreenState = greenReading;

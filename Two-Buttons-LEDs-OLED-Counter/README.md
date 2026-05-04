@@ -1,6 +1,6 @@
-# Two Buttons, Two LEDs, OLED – Button Press Counter
+# Button Counter – Two Versions
 
-This version counts how many times each button is pressed and displays the counts on the OLED.
+- **`main.cpp`** – **Improved version**: non‑blocking debounce, perfect for fast/slow clicks, no double counts.
+- **`main_v1.cpp`** – **First version**: simple `delay(50)` debounce. Works but may double‑count on slow clicks.
 
-Press the blue button (GPIO4) → red LED toggles, red counter increments.
-Press the green button (GPIO7) → green LED toggles, green counter increments.
+To try the first version, rename `main_v1.cpp` to `main.cpp` (or swap the filenames). Both use the same `diagram.json`.
