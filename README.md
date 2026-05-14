@@ -26,6 +26,13 @@ Currently contains:
 To use a shared library in a project, copy its folder into the project’s `lib/` directory.  
 PlatformIO automatically includes such libraries.
 
+## Potentiometer-Reading
+
+Simple analog read from a potentiometer connected to GPIO26. Serial output shows raw values (0‑4095).  
+- **Uses** `esp:TX0`/`esp:RX0` for reliable serial monitor.
+- **Demonstrates** `analogRead()` and live terminal output.
+
+[Diagram and code](./Potentiometer-Reading/)
 ## How to run a simulation
 
 1. Open a project folder (e.g., `Two-Buttons-LEDs-OLED`) in VS Code.
