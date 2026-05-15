@@ -40,12 +40,6 @@ Analog read from a potentiometer (GPIO32) displayed on an SSD1306 OLED. Demonstr
 
 [See project folder](./Potentiometer-OLED/)
 
-## How to run a simulation
-
-1. Open a project folder (e.g., `Two-Buttons-LEDs-OLED`) in VS Code.
-2. Build the project (`✓` button in PlatformIO toolbar).
-3. Start Wokwi: `F1` → `Wokwi: Start Simulator`.
-
 ## SensorTest
 
 A simulation that reads a potentiometer (simulated heart rate) and a BMP180 pressure sensor, displays the values on an OLED, and allows switching between three display modes with a push button.
@@ -63,6 +57,17 @@ A simulation that reads a potentiometer (simulated heart rate) and a BMP180 pres
   3. Press the green button to cycle modes; turn the potentiometer to change the simulated heart rate.
 
 This project demonstrates using a shared library, robust button handling, and I2C sensor integration – all essential for the final wearable.
+
+
+
+
+## How to run a simulation
+
+1. Open a project folder (e.g., `Two-Buttons-LEDs-OLED`) in VS Code.
+2. Build the project (`✓` button in PlatformIO toolbar).
+3. Start Wokwi: `F1` → `Wokwi: Start Simulator`.
+
+
 
 ## License
 
