@@ -15,11 +15,15 @@ void OLEDHelper::clear() {
   display.clearDisplay();
 }
 
+void OLEDHelper::show() {
+  display.display();
+}
+
 void OLEDHelper::displayText(const char* text, int x, int y, int size) {
   display.setTextSize(size);
   display.setCursor(x, y);
   display.print(text);
-  display.display();
+  // Do NOT call show() here – let caller decide when to refresh
 }
 
 void OLEDHelper::showPotValue(int raw, float voltage) {
@@ -33,5 +37,5 @@ void OLEDHelper::showPotValue(int raw, float voltage) {
   display.print("Voltage: ");
   display.print(voltage, 2);
   display.println(" V");
-  display.display();
+  show();
 }
