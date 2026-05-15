@@ -33,6 +33,13 @@ Simple analog read from a potentiometer connected to GPIO26. Serial output shows
 - **Demonstrates** `analogRead()` and live terminal output.
 
 [Diagram and code](./Potentiometer-Reading/)
+
+## Potentiometer-OLED
+
+Analog read from a potentiometer (GPIO32) displayed on an SSD1306 OLED. Demonstrates shared library usage (`OLEDHelper`) and working serial monitor.
+
+[See project folder](./Potentiometer-OLED/)
+
 ## How to run a simulation
 
 1. Open a project folder (e.g., `Two-Buttons-LEDs-OLED`) in VS Code.
